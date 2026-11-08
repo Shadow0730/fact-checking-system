@@ -1,0 +1,17 @@
+.env
+corpus/files/*
+!corpus/files/sample/
+eval/results/*
+!eval/results/.gitkeep
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+.next/
+frontend/.env.local
+frontend/next-env.d.ts
+*.tsbuildinfo
+
+data/

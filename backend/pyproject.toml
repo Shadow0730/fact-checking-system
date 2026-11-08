@@ -1,0 +1,42 @@
+[project]
+name = "legal-factcheck"
+version = "0.1.0"
+description = "Checks AI-written legal drafts for fabricated citations, misquotes and unsupported claims."
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic-settings",
+  "sqlalchemy>=2",
+  "psycopg[binary]>=3",
+  "pgvector",
+  "httpx",
+  "tenacity",              # retries with backoff
+  "rapidfuzz",
+  "pysbd",
+  "pymupdf",
+  "python-docx",
+  "python-multipart",      # file uploads in FastAPI
+  "pyyaml",
+  "sentence-transformers",
+  "numpy",
+]
+
+[dependency-groups]
+dev = ["pytest", "pytest-asyncio", "ruff"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = ["db: needs a running Postgres (skipped otherwise)"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "B905", "E501"]   # FastAPI's Depends()/File() defaults are idiomatic

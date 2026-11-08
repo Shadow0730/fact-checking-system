@@ -1,0 +1,29 @@
+FICTIONAL SAMPLE DOCUMENT - written for software testing and demos only. This is not real law.
+
+THE MODEL CHEQUE DISHONOUR ACT, 2020
+An Act to provide for the consequences of the dishonour of cheques.
+
+1. Short title and commencement.
+(1) This Act may be called the Model Cheque Dishonour Act, 2020.
+(2) It shall come into force on such date as the Government may notify.
+
+2. Definitions.
+In this Act, unless the context otherwise requires, "cheque" includes a post-dated cheque and an electronic image of a truncated cheque, and "holder in due course" means a person who, for consideration, became the possessor of the cheque before the amount mentioned in it became payable.
+
+3. Dishonour of cheque for insufficiency of funds.
+Where any cheque drawn by a person on an account maintained by him with a bank for the payment of any amount of money to another person, in discharge of a legally enforceable debt or other liability, is returned by the bank unpaid because the amount of money standing to the credit of that account is insufficient to honour the cheque, such person shall be deemed to have committed an offence and shall be punished with imprisonment for a term which may extend to two years, or with fine which may extend to twice the amount of the cheque, or with both:
+Provided that nothing in this section shall apply unless the cheque has been presented to the bank within a period of three months from the date on which it is drawn, the payee has made a demand for the payment of the said amount by giving a notice in writing to the drawer within thirty days of the receipt of information from the bank regarding the return of the cheque as unpaid, and the drawer has failed to make the payment within fifteen days of the receipt of the said notice.
+
+4. Presumption in favour of holder.
+It shall be presumed, unless the contrary is proved, that the holder of a cheque received the cheque for the discharge, in whole or in part, of any debt or other liability. The presumption is rebuttable, and the accused may rebut it on a preponderance of probabilities.
+
+5. Offences by companies.
+(1) If the person committing an offence under section 3 is a company, every person who, at the time the offence was committed, was in charge of, and was responsible to, the company for the conduct of the business of the company, as well as the company, shall be deemed to be guilty of the offence.
+(2) Nothing in sub-section (1) shall render any person liable to punishment if he proves that the offence was committed without his knowledge, or that he had exercised all due diligence to prevent the commission of such offence.
+(3) A director who is nominated by the Government or a financial institution shall not be liable for prosecution under this section.
+
+6. Cognizance of offences.
+No court shall take cognizance of any offence punishable under section 3 except upon a complaint in writing made by the payee or the holder in due course of the cheque, and such complaint must be made within one month of the date on which the cause of action arises. The court may take cognizance of a complaint after that period if the complainant satisfies the court that he had sufficient cause for not making the complaint within such period.
+
+7. Interim compensation.
+The court trying an offence under section 3 may order the drawer of the cheque to pay interim compensation to the complainant, which shall not exceed twenty per cent of the amount of the cheque.

@@ -1,0 +1,64 @@
+sources:
+- id: sample-cheque-act-2020
+  title: The Model Cheque Dishonour Act, 2020
+  doc_type: statute
+  year: 2020
+  language: en
+  citations: []
+  aliases:
+  - Model Cheque Dishonour Act
+  - Cheque Dishonour Act
+  - MCD Act
+  file: files/sample/model-cheque-act-2020.txt
+  sectioning: statute
+  enabled: true
+- id: sample-kulkarni-2018
+  title: Ravindra Kulkarni v. Meridian Textiles Pvt. Ltd.
+  doc_type: judgment
+  court: Sample Supreme Court (fictional)
+  year: 2018
+  language: en
+  citations:
+  - (2018) 4 SCC 512
+  aliases:
+  - Ravindra Kulkarni v. Meridian Textiles
+  - Kulkarni v. Meridian Textiles
+  file: files/sample/kulkarni-2018.txt
+  enabled: true
+- id: sample-deshmukh-2020
+  title: Anjali Deshmukh v. Horizon Finance Ltd.
+  doc_type: judgment
+  court: Sample Supreme Court (fictional)
+  year: 2020
+  language: en
+  citations:
+  - (2020) 7 SCC 233
+  aliases:
+  - Deshmukh v. Horizon Finance
+  file: files/sample/deshmukh-2020.txt
+  enabled: true
+- id: sample-menon-2021
+  title: Suresh Menon v. Lakshmi Traders
+  doc_type: judgment
+  court: Sample Supreme Court (fictional)
+  year: 2021
+  language: en
+  citations:
+  - 2021 INSC 410
+  aliases:
+  - Menon v. Lakshmi Traders
+  file: files/sample/menon-2021.txt
+  enabled: true
+- id: ni-act-1881
+  title: The Negotiable Instruments Act, 1881
+  doc_type: statute
+  year: 1881
+  language: en
+  citations: []
+  aliases:
+  - Negotiable Instruments Act
+  - NI Act
+  - N.I. Act
+  file: files/ni-act-1881.pdf
+  sectioning: statute
+  enabled: false

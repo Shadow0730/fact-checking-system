@@ -1,0 +1,31 @@
+INDEPENDENT CONTRACTOR AGREEMENT
+Jurisdiction: Maharashtra, India
+
+1. Parties
+This Independent Contractor Agreement is made between Imaginehuge Pvt Ltd, having its principal place of business in Pune (the Company), and Priya Mehta (the Contractor).
+
+2. Validity of this Agreement
+Under Section 10 of the Indian Contract Act, 1872, all agreements are contracts if they are made by the free consent of parties competent to contract, for a lawful consideration and with a lawful object, and are not expressly declared to be void.
+Each party confirms that it is competent to contract within the meaning of Section 11 of the Indian Contract Act, 1872, being of the age of majority, of sound mind and not disqualified from contracting by any law.
+
+3. Scope of Work
+The Contractor will design and build a customer-facing analytics dashboard for the Company, including UI design in Figma and frontend development in React.
+
+4. Fees
+The Company shall pay the Contractor a total fee of Rs. 45,000 in three milestones: 30% on signing, 40% on delivery of the first working version, and 30% on final handover.
+
+5. Non-Compete
+The Contractor shall not work for any competitor of the Company for two years after this Agreement ends.
+Under Section 27 of the Indian Contract Act, 1872, a reasonable restraint on a person from carrying on a trade or business after the contract ends is valid and enforceable.
+As held in Techvista Solutions Pvt. Ltd. v. Orion Digital Services, (2021) 19 SCC 9999, the Supreme Court upheld a two-year post-termination non-compete clause in a software services contract.
+
+6. Damages for Breach
+Under Section 74 of the Indian Contract Act, 1872, the party who suffers by a breach of contract is entitled to receive compensation for any loss or damage which naturally arose in the usual course of things from such breach.
+Section 73 of the Indian Contract Act, 1872 further provides that "such compensation is to be given for any remote and indirect loss or damage sustained by reason of the breach."
+
+7. Dispute Resolution
+Any dispute arising out of this Agreement shall be referred to arbitration by a sole arbitrator seated in Pune.
+Under Section 7 of the Arbitration and Conciliation Act, 1996, an arbitration agreement may be made orally and need not be in writing.
+
+8. Signatures
+Signed for the Company: ____________    Signed by the Contractor: ____________

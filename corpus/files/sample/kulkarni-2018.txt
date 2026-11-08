@@ -1,0 +1,24 @@
+FICTIONAL SAMPLE DOCUMENT - written for software testing and demos only. This case does not exist.
+
+IN THE SAMPLE SUPREME COURT
+Ravindra Kulkarni v. Meridian Textiles Pvt. Ltd.
+(2018) 4 SCC 512
+Decided on 14 March 2018
+
+JUDGMENT
+
+1. The appellant challenges the order of the High Court quashing a complaint filed under Section 3 of the Model Cheque Dishonour Act, 2020. The respondent company had issued three post-dated cheques to the appellant as security for the repayment of an inter-corporate loan.
+
+2. The respondent contends that a cheque given as security is not a cheque issued in discharge of a debt, and that its dishonour therefore cannot give rise to an offence. The High Court accepted this contention.
+
+3. The question for decision is whether the dishonour of a cheque described as a security cheque can attract liability under Section 3 of the Act.
+
+4. The word "security" is not a talisman that takes a cheque outside the statute. What matters is the nature of the liability on the date the cheque is presented. If, on that date, the loan has fallen due and remains unpaid, the cheque represents a legally enforceable debt.
+
+5. Where a cheque is drawn in discharge of a debt that has become due on the date of its presentation, the drawer shall be liable under Section 3, notwithstanding that the cheque was described as security. A post-dated cheque is a cheque for this purpose and is drawn on the date it bears.
+
+6. We must add a caution. If, on the date of presentation, no debt is due, because the loan was never advanced or has already been repaid, the dishonour of a security cheque does not attract Section 3. The complainant must show that a debt existed and had crystallised on the date of presentation.
+
+7. In the present case the loan of Rs. 40,00,000 had become repayable on 1 January 2017 and the cheques were presented on 10 January 2017. The debt had crystallised. The High Court erred in quashing the complaint.
+
+8. The appeal is allowed. The order of the High Court is set aside and the complaint is restored to the file of the trial court, which shall proceed with it in accordance with law.

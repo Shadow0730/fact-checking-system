@@ -1,0 +1,20 @@
+FICTIONAL SAMPLE DOCUMENT - written for software testing and demos only. This case does not exist.
+
+IN THE SAMPLE SUPREME COURT
+Suresh Menon v. Lakshmi Traders
+2021 INSC 410
+Decided on 19 July 2021
+
+JUDGMENT
+
+1. The appellant was a non-executive director of a company whose cheque was dishonoured. He was arrayed as an accused only because he was a director.
+
+2. Section 5 of the Model Cheque Dishonour Act, 2020 makes liable every person who was in charge of, and responsible to, the company for the conduct of its business when the offence was committed. Liability under that provision is vicarious and must be strictly construed.
+
+3. A director is not liable merely by reason of holding the office of director. The complaint must contain specific averments showing how and in what manner the director was in charge of and responsible for the conduct of the business of the company at the relevant time.
+
+4. The position is different for a managing director or a director who signed the cheque. Such a person is, by virtue of the office or the act of signing, in charge of the business, and a specific averment to that effect is not required.
+
+5. On the presumption in favour of the holder, the accused need not step into the witness box to rebut it. The presumption under Section 4 may be rebutted on a preponderance of probabilities, including by relying on the material brought on record by the complainant.
+
+6. The complaint in this case contains no averment that the appellant was in charge of the conduct of the business of the company. The proceedings against him are quashed. The proceedings against the company and its managing director shall continue.

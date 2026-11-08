@@ -1,0 +1,32 @@
+INDEPENDENT CONTRACTOR AGREEMENT
+Jurisdiction: Maharashtra, India
+
+1. Parties
+This Independent Contractor Agreement is made between Imaginehuge Pvt Ltd, having its principal place of business in Pune (the Company), and Priya Mehta (the Contractor).
+
+2. Validity of this Agreement
+Under Section 10 of the Indian Contract Act, 1872, all agreements are contracts if they are made by the free consent of parties competent to contract, for a lawful consideration and with a lawful object, and are not expressly declared to be void.
+Each party confirms that it is competent to contract within the meaning of Section 11 of the Indian Contract Act, 1872, being of the age of majority, of sound mind and not disqualified from contracting by any law.
+
+3. Scope of Work
+The Contractor will design and build a customer-facing analytics dashboard for the Company, including UI design in Figma and frontend development in React.
+
+4. Fees
+The Company shall pay the Contractor a total fee of Rs. 45,000 in three milestones: 30% on signing, 40% on delivery of the first working version, and 30% on final handover.
+
+5. Non-Solicitation and Restraint
+The Contractor shall not solicit the Company's clients during the term of this Agreement.
+The parties note that Section 27 of the Indian Contract Act, 1872 provides that "every agreement by which any one is restrained from exercising a lawful profession, trade or business of any kind, is to that extent void."
+Accordingly, this Agreement does not restrain the Contractor from working for any other person after the Agreement ends.
+
+6. Damages for Breach
+Under Section 73 of the Indian Contract Act, 1872, the party who suffers by a breach of contract is entitled to receive compensation for any loss or damage which naturally arose in the usual course of things from such breach.
+Section 73 of the Indian Contract Act, 1872 further provides that "such compensation is not to be given for any remote and indirect loss or damage sustained by reason of the breach."
+Under Section 74 of the Indian Contract Act, 1872, where a sum is named in the contract as the amount to be paid in case of breach, the party complaining of the breach is entitled to receive reasonable compensation not exceeding the amount so named.
+
+7. Dispute Resolution
+Any dispute arising out of this Agreement shall be referred to arbitration by a sole arbitrator seated in Pune.
+Under Section 7 of the Arbitration and Conciliation Act, 1996, an arbitration agreement shall be in writing.
+
+8. Signatures
+Signed for the Company: ____________    Signed by the Contractor: ____________

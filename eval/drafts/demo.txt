@@ -1,0 +1,32 @@
+LEGAL NOTICE UNDER THE MODEL CHEQUE DISHONOUR ACT, 2020
+(Demo draft built on the fictional sample corpus. It contains four planted errors.)
+
+To: Mr. Vikram Rao, Director, Orion Agro Pvt. Ltd.
+
+1. Our client advanced a loan of Rs. 25,00,000 to Orion Agro Pvt. Ltd. on 3 March 2024, repayable on 3 September 2024.
+
+2. Your company issued a post-dated cheque dated 3 September 2024 for the full amount, which was returned unpaid by the bank on 6 September 2024 for insufficiency of funds.
+
+3. Under Section 4 of the Model Cheque Dishonour Act, 2020, a person whose cheque is returned by the bank unpaid because the amount standing to the credit of the account is insufficient shall be deemed to have committed an offence.
+
+4. In Ravindra Kulkarni v. Meridian Textiles Pvt. Ltd., (2018) 4 SCC 512, the Supreme Court held that "where a cheque is drawn in discharge of a debt that has become due on the date of its presentation, the drawer may be liable under Section 3, notwithstanding that the cheque was described as security."
+
+5. The same judgment holds that a post-dated cheque is a cheque for this purpose and is drawn on the date it bears.
+
+6. It is settled law that a security cheque attracts liability even where no debt was due on the date of presentation, as held in Bharat Steel Corporation v. Union Traders, (2019) 7 SCC 412.
+
+7. In Anjali Deshmukh v. Horizon Finance Ltd., (2020) 7 SCC 233, the Court held that the cause of action arises only when the drawer fails to pay within fifteen days of receiving the demand notice.
+
+8. Under Section 6 of the Model Cheque Dishonour Act, 2020, the complaint must be made within one month of the date on which the cause of action arises, and the court may take cognizance after that period if the complainant shows sufficient cause.
+
+9. In Suresh Menon v. Lakshmi Traders, 2021 INSC 410, the Court held that every director of a company is liable merely by reason of holding the office of director, and no specific averment is required in the complaint.
+
+10. Under Section 5 of the Model Cheque Dishonour Act, 2020, every person who was in charge of and responsible to the company for the conduct of its business is deemed guilty of the offence, along with the company.
+
+11. The presumption under Section 4 of the Model Cheque Dishonour Act, 2020 is rebuttable, and the accused may rebut it on a preponderance of probabilities.
+
+12. The trial court may also order the drawer to pay interim compensation to the complainant not exceeding twenty per cent of the amount of the cheque.
+
+You are therefore called upon to pay the sum of Rs. 25,00,000 within fifteen days of receipt of this notice, failing which our client shall initiate proceedings against the company and its directors.
+
+For Mehta & Associates, Advocates

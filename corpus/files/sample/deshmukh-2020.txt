@@ -1,0 +1,24 @@
+FICTIONAL SAMPLE DOCUMENT - written for software testing and demos only. This case does not exist.
+
+IN THE SAMPLE SUPREME COURT
+Anjali Deshmukh v. Horizon Finance Ltd.
+(2020) 7 SCC 233
+Decided on 2 September 2020
+
+JUDGMENT
+
+1. This appeal concerns the time limits that govern a complaint for the dishonour of a cheque under the Model Cheque Dishonour Act, 2020.
+
+2. The cheque was returned unpaid on 5 June 2019. The appellant received the bank's return memo on 7 June 2019 and sent a demand notice on 30 June 2019. The respondent did not pay. The complaint was filed on 20 August 2019.
+
+3. The statute requires the payee to give a written demand notice to the drawer within thirty days of receiving information from the bank that the cheque was returned unpaid. The notice in this case was sent within that period.
+
+4. The cause of action arises only when the drawer fails to pay within fifteen days of receiving the demand notice. Time for filing the complaint does not run from the date of dishonour.
+
+5. A complaint must be filed within one month of the date on which the cause of action arises. The limit is not absolute: the court may condone the delay if the complainant shows sufficient cause for not filing the complaint in time.
+
+6. The appellant explained the delay of about three weeks by producing medical records showing that she was in hospital. That is sufficient cause. The Magistrate should have condoned the delay rather than dismissing the complaint as time-barred.
+
+7. A demand notice sent after the thirty-day period is not valid, and a complaint founded on such a notice cannot be entertained. That defect cannot be cured by condoning delay, because the notice is a condition for the offence itself and not a matter of limitation.
+
+8. The appeal is allowed. The delay in filing the complaint is condoned and the Magistrate shall take cognizance of the complaint.
