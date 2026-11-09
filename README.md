@@ -1,146 +1,138 @@
 # Legal Fact Checker
 
-Checks an AI-written legal draft for **fabricated citations**, **misquotes** and **unsupported claims**.
-Each claim gets a calibrated confidence score, and the tool **abstains** when the sources don't settle it.
+Checks AI-written Indian legal drafts for **fabricated citations**, **misquotes** and **unsupported claims**.
+Every claim gets a verdict, a reason and a confidence score. When the sources don't settle a claim, the tool
+abstains instead of guessing.
 
-The full specification is in [`../legal-factcheck-build-guide.md`](../legal-factcheck-build-guide.md).
-This README covers how to run the project and where it differs from the guide.
+Built with FastAPI, Next.js, Sarvam (LLM and Prism) and bge-m3 embeddings. It needs no database or Docker.
 
-```
-draft ─▶ segment ─▶ citations (regex) + quotes ─▶ claims (Sarvam LLM)
-      ─▶ resolve citation (DB lookup) ─▶ quote check (rapidfuzz) ─▶ hybrid retrieval (pgvector + FTS, RRF)
-      ─▶ Sarvam Prism (supported / contradicted / not enough info) ─▶ rules ─▶ GREEN / AMBER / RED + fix
-```
+## Quick start
 
-## Run everything with one command
-
-Prerequisites: **Python 3.12+** and **Node 20+**. No Docker and no database needed.
+Requires **Python 3.12+** and **Node 20+**.
 
 ```bash
-python run.py            # Windows: you can also double-click run.bat
+python run.py        # on Windows you can also double-click run.bat
 ```
 
-That one command:
-1. creates `.env` from `.env.example` (first run only),
-2. creates `backend/.venv` and installs the Python packages, and runs `npm install` in `frontend/`
-   (only when something changed),
-3. starts the API on http://localhost:8000 and the UI on http://localhost:3000, prints both logs
-   (`[api]` / `[web]`) and opens the browser. **Ctrl+C stops both.**
+This creates `.env`, installs anything missing, starts the UI on http://localhost:3000 and the API on
+http://localhost:8000 (docs at `/docs`), and opens the browser. Ctrl+C stops both.
 
-Then pick **Load example draft… → demo** and click **Check draft**. The `contract-correct` and `contract-wrong` examples need Indian Kanoon on (they cite the Indian Contract Act and the Arbitration Act).
+In the UI, choose **Load example draft… → demo** and click **Check draft**.
 
-| Option | What it does |
+**For real results**, set `SARVAM_API_KEY` in `.env` and run `python run.py` again. Without a key, the app starts
+in offline mode, which uses heuristics only and is **not meaningful** beyond UI work. The first real start downloads
+bge-m3 (~2.3 GB) and embeds the corpus; embeddings are cached in `data/cache/`.
+
+| Option | Effect |
 |---|---|
-| `--offline` | No Sarvam key and no 2.3 GB model: heuristics only, results not meaningful (UI work) |
-| `--skip-install` | Skip the dependency check for a faster start |
+| `--offline` | Force offline mode: no Sarvam key, no model download |
+| `--skip-install` | Skip the dependency check |
 | `--no-browser` | Don't open the browser |
 
-**Real results:** put your key in `.env` (`SARVAM_API_KEY=...`) and run `python run.py` again. While the key
-is empty, the launcher starts in offline mode automatically and says so. The first real start downloads
-bge-m3 (~2.3 GB) and embeds the corpus. The embeddings are cached in `data/cache/`, so later starts are fast.
+> **The bundled corpus is fictional.** `corpus/files/sample/` holds four invented documents written to exercise
+> every verdict in the demo. Never present their citations as real authorities. See
+> [Using a real corpus](#using-a-real-corpus).
 
-### Where data lives (no database)
+## How it works
 
-With `DATABASE_URL` empty (the default), the backend:
-- loads every enabled source in `corpus/manifest.yaml` into memory at startup,
-- saves each check as `data/checks/<id>.json` (the "Recent checks" list reads these),
-- takes uploads on the Sources page and reloads the corpus straight away.
+1. **Extract:** split the draft into segments, then pull out citations (regex), quotes, and claims (Sarvam LLM).
+2. **Resolve:** look up each citation in the corpus, then on Indian Kanoon if enabled.
+3. **Compare quotes:** fuzzy-match quoted text against the source (rapidfuzz).
+4. **Retrieve:** run vector and keyword search and merge the results with reciprocal rank fusion.
+5. **Judge:** Sarvam Prism decides whether the evidence supports the claim, contradicts it, or doesn't settle it.
+6. **Score:** ordered rules assign the verdict, and the tool suggests a fix where it can.
 
-To start clean, delete `data/`. After you edit `corpus/manifest.yaml` or a corpus file, restart.
+| Verdict | Colour | Meaning |
+|---|---|---|
+| Possibly fabricated | Red | Citation not found in any source that was searched |
+| Misquote | Red | Quote doesn't match the source, or a word that changes legal meaning differs |
+| Contradicted | Red | The source says otherwise |
+| Verified | Green | Prism's support probability is at least `THRESH_SUPPORTED` (default 0.90) |
+| Weak support | Amber | Partial support (at least `THRESH_WEAK`, default 0.60), minor quote differences, or a real case with the wrong citation number |
+| Insufficient sources | Amber | Abstained: not enough evidence, or the citation could not be checked |
+| Not a legal claim | Grey | A fact about the matter, not checkable against the law |
 
-### Indian Kanoon lookups (citations not in the corpus)
+## Configuration
 
-Put your token in `.env` as `INDIANKANOON_API_TOKEN=...` and restart. The header then shows **Indian Kanoon on**.
-For every citation that the local corpus doesn't have, a check now does the following:
+Settings live in `.env`; [`.env.example`](.env.example) documents all of them.
 
-1. **Search.** Judgments are searched by the citation, then by the case name. A statute section is
-   searched as "Section N" plus the act name, among laws.
-2. **Verify.** A hit is used only after its document is fetched and it contains the cited citation, or
-   carries the cited case name with a matching year. A name match on its own gives "citation mismatch",
-   never a green verdict.
-3. **Save.** The document goes into `corpus/files/indiankanoon/` and `corpus/manifest.yaml` (ids `ik-<docid>`;
-   statute sections go into one `ik-act-<name>` source). It is part of the corpus from then on, so it is never
-   paid for again. Raw API responses are also cached in `data/indiankanoon/`.
-4. **Judge.** The claim is then checked against that text exactly like a local source.
+| Variable | Purpose |
+|---|---|
+| `SARVAM_API_KEY` | Enables real claim extraction and judging |
+| `INDIANKANOON_API_TOKEN` | Enables Indian Kanoon lookups (optional) |
+| `INDIANKANOON_MAX_LOOKUPS` | Most distinct citations looked up per check (default 8) |
+| `DATABASE_URL` | Use PostgreSQL instead of memory (optional) |
+| `EMBEDDING_MODEL` | Embedding model; `hash` skips the download (UI work and tests only) |
+| `THRESH_*`, `QUOTE_*` | Verdict thresholds |
 
-What the verdict means:
-- **Not in the corpus and not on Indian Kanoon:** "possibly fabricated", with the reason saying both were searched.
-- **Indian Kanoon unreachable** (network, bad token, empty balance): amber "could not verify", never "fabricated".
-- **More than `INDIANKANOON_MAX_LOOKUPS` distinct citations in one draft** (default 8): the rest are not
-  looked up and show as "could not verify". This caps the cost of a single check.
+### Storage
 
-Constitution articles are not looked up; keep the Constitution in the local corpus. If a draft cites a section that
-is missing from an act you curated locally, that section is not looked up either: a local act is treated as complete.
-Indian Kanoon's terms ask for "powered by IKanoon" attribution at the top of results. The report page shows it
-whenever a source came from Indian Kanoon.
+With `DATABASE_URL` empty, the corpus in `corpus/manifest.yaml` loads into memory at startup and each check is saved
+as `data/checks/<id>.json`. Restart after editing the manifest or a corpus file. Files uploaded on the Sources page
+(`.pdf`, `.docx`, `.txt`, `.md`) take effect immediately. To clear saved checks and caches, delete `data/`.
 
-### Other commands (from `backend/`, using its venv)
+For a large corpus, use PostgreSQL 16 with `pgvector`: set `DATABASE_URL`, then run `scripts/init_db.py` and
+`scripts/ingest_corpus.py` from `backend/`.
+
+### Indian Kanoon lookups
+
+With a token set, the header shows **Indian Kanoon on**, and citations missing from the corpus are handled as follows:
+
+1. **Search** judgments by citation, then by case name. Statute sections are searched by section number and act name.
+2. **Verify** by fetching the document. It must contain the citation, or the case name with a matching year. A name
+   match alone gives a citation mismatch, never a green verdict.
+3. **Save** it to `corpus/files/indiankanoon/` and `corpus/manifest.yaml`, so it is only paid for once.
+4. **Judge** the claim against that text like any local source.
+
+| Lookup result | Outcome |
+|---|---|
+| Not in the corpus or on Indian Kanoon | Possibly fabricated |
+| Indian Kanoon unreachable (network, bad token, empty balance) | Could not verify (amber), never fabricated |
+| Over the per-check lookup limit | Could not verify (amber) |
+
+The `contract-*` example drafts need lookups on, because they cite real acts that the sample corpus doesn't contain.
+
+Constitution articles are not looked up, so keep the Constitution in the local corpus. A locally curated act is
+treated as complete, so a section missing from it is not looked up either. Indian Kanoon's terms require
+"powered by IKanoon" attribution, which the report page shows whenever a source came from there.
+
+## Using a real corpus
+
+Do these steps before reporting any numbers:
+
+1. Download real sources (India Code for acts, the Supreme Court of India website for judgments) and check each licence.
+2. Add them to `corpus/manifest.yaml` (the disabled `ni-act-1881` entry shows the format) and set the `sample-*`
+   entries to `enabled: false`.
+3. Restart `python run.py`, or run `scripts/ingest_corpus.py` if you use Postgres.
+4. Regenerate `eval/gold/` with a Sarvam key, since the committed files were built offline from the sample corpus and
+   their paraphrases are verbatim. Have someone with legal knowledge spot-check at least 50 rows (`"checked": true`).
+5. Write a new `eval/drafts/demo.txt` against the real corpus, with planted errors for each red verdict.
+
+## Development
+
+Run these from `backend/`. On macOS/Linux, use `.venv/bin/python`.
 
 ```bash
-.venv/Scripts/python scripts/smoke_sarvam.py      # check your key: one LLM call + one Prism call
-.venv/Scripts/python scripts/smoke_indiankanoon.py --doc   # check your Indian Kanoon token (~Rs 0.70)
-.venv/Scripts/python -m pytest -q                 # tests
+.venv/Scripts/python -m pytest -q                            # tests
+.venv/Scripts/python scripts/smoke_sarvam.py                 # check the Sarvam key
+.venv/Scripts/python scripts/smoke_indiankanoon.py --doc     # check the Indian Kanoon token (~Rs 0.70)
+
 .venv/Scripts/python scripts/make_eval_set.py --out ../eval/gold --n 300 --dev 100
-.venv/Scripts/python scripts/run_eval.py --dataset dev  --sweep-thresholds   # copy best thresholds into .env
-.venv/Scripts/python scripts/run_eval.py --dataset test --with-baseline      # shown on /eval
+.venv/Scripts/python scripts/run_eval.py --dataset dev --sweep-thresholds   # copy the best thresholds into .env
+.venv/Scripts/python scripts/run_eval.py --dataset test --with-baseline     # results appear on /eval
 ```
-(On macOS/Linux use `.venv/bin/python`.)
-
-### Optional: PostgreSQL instead of memory
-
-For a large corpus you can use PostgreSQL 16 with `pgvector`. Set `DATABASE_URL` in `.env`, then from `backend/`
-run `scripts/init_db.py` (applies `db/init.sql`) and `scripts/ingest_corpus.py`. Everything else stays the same.
-
-## The sample corpus is fictional
-
-`corpus/files/sample/` contains **four fictional documents** (a model cheque-dishonour act and three judgments of
-a "Sample Supreme Court") written so the demo draft exercises every verdict. They are not real law, and their
-citations must never be presented as real authorities.
-
-Before reporting any numbers:
-1. Download real sources (India Code for acts; the Supreme Court of India website for judgments), check each
-   licence, add them to `corpus/manifest.yaml` (a disabled NI Act entry shows the format), and set the
-   `sample-*` entries to `enabled: false`.
-2. Restart `python run.py` (or run `scripts/ingest_corpus.py` if you use Postgres)
-3. Regenerate `eval/gold/` with a Sarvam key (the committed files were built in offline mode from the sample
-   corpus: paraphrases are verbatim) and have someone with legal knowledge spot-check at least 50 rows
-   (`"checked": true`).
-4. Write a new `eval/drafts/demo.txt` against the real corpus, with the four planted errors from Section 17
-   of the guide.
-
-## Where this differs from the guide
-
-| Change | Why |
-|---|---|
-| `claims` has extra columns `case_name`, `quote_diff`, `quote_critical`; `sources` has `citations` (display form) | The UI shows the word diff and the correct citation; the fixer needs the citation text |
-| Extra verdict `not_legal` (grey) | Rule 1 of the scorer; the guide's table already uses it |
-| Rule 4b: a quote with minor, non-critical differences → amber `weak` | Section 8 says "minor differences (amber)" but the rule table had no row for it |
-| A statute citation pins retrieval to that section; a missing section → `not_found` | "Section 139" with Section 138's content then fails against 139, and the fixer suggests 138 |
-| A case name that matches but with a citation number not in the DB → `found` with a note; never green | A real case with the wrong reporter number is a citation error, not a fabrication |
-| "Supported by a different source" second pass for weak/insufficient/contradicted claims | Implements the guide's "not supported by the case you cited, but supported by X" |
-| No Docker; the database is optional (`DATABASE_URL` empty = in-memory corpus + JSON files in `data/`) | One command (`python run.py`) runs everything with no database to install |
-| `corpus_repo.py` (SQL + in-memory) | Same pipeline code for both storage modes and for the tests |
-| `EMBEDDING_MODEL=hash` | UI work and tests without the 2.3 GB download |
-| Indian Kanoon lookup for citations not in the corpus (optional) | A corpus can never hold every judgment; "not in our corpus" alone is weak evidence of fabrication |
-| `GET /api/demo-drafts` | Feeds the "Load demo draft" button from `eval/drafts/` |
-| Fixes are applied client-side to a working copy, so several can be stacked before re-checking | `POST …/apply-fix` still exists for API users |
-| `run.py` installs with pip into `backend/.venv`; `uv` is optional | `uv sync` still works if you prefer uv |
-
-## Layout
 
 ```
-run.py / run.bat            start backend + frontend together
-db/init.sql                 optional Postgres schema (pgvector, FTS, HNSW)
-corpus/manifest.yaml        sources; files under corpus/files/
-eval/gold/*.jsonl           labelled claims (dev for tuning, test for reporting)
-eval/drafts/demo.txt        demo draft with 4 planted errors
-backend/app/check/          the pipeline: segmenter, citations, quotes, extractor, resolver,
-                            retriever, judge, scorer, fixer, pipeline
-backend/app/clients/        the only code that talks to Sarvam / Indian Kanoon (+ offline fakes)
-backend/app/check/online.py look up missing citations on Indian Kanoon, verify, add to the corpus
-backend/app/ingest/         manifest, loaders, chunker, embedder, ingest pipeline
-backend/app/local_store.py  no-database mode: in-memory corpus, checks as JSON files
-data/                       created at runtime: saved checks + embedding cache (gitignored)
-backend/scripts/            ingest_corpus, smoke_sarvam, make_eval_set, run_eval, init_db
-frontend/app/               / (check), /checks/[id] (report), /sources, /eval
+run.py, run.bat       start backend and frontend together
+backend/app/check/    pipeline: segmenter, citations, quotes, extractor, resolver, online lookup,
+                      retriever, judge, scorer, fixer
+backend/app/clients/  the only code that calls Sarvam or Indian Kanoon, plus offline fakes
+backend/app/ingest/   manifest, loaders, chunker, embedder
+backend/app/routers/  checks, sources, eval, health
+backend/scripts/      smoke tests, ingestion, evaluation
+frontend/app/         pages: / (check), /checks/[id] (report), /sources, /eval
+corpus/               manifest.yaml and source files
+eval/                 gold claims (dev for tuning, test for reporting) and example drafts
+db/init.sql           optional Postgres schema
+data/                 created at runtime: saved checks and caches (gitignored)
 ```
